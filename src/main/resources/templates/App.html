@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <h3>Liste des applications</h3>
+    <div class="container mt-2">
+        <div class="card">
+            <div class="card-header">  Liste des applications </div>
+            <div class="card-body">
+                <form method="get" th:action="@{App.html}">
+                    <label>key word</label>
+                    <input type="text" name="keyword" th:value="${Keyword}">
+                    <button type="submit" class="btn btn-primary">Chercher:</button>
+                </form>
+
+                <td>
+                    <a  th:href="@{formAjouterApp}">
+                        Ajouter une application
+                    </a>
+                </td>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th> ID </th>
+                        <th> Domaine </th>
+                        <th> Version </th>
+                        <th> Help </th>
+                        <th> Auteur </th>
+                        <th> Date de création </th>
+                        <th> Date de modification </th>
+                        <th> Ouverture </th>
+                        <th> Date de Fermeture </th>
+                        <th> type de message </th>
+                        <th> lib de message </th>
+                        <th> lb </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="A:${listApps}">
+                        <td th:text="${A.appId}"></td>
+                        <td th:text="${A.app_domaine}"></td>
+                        <td th:text="${A.app_version}"></td>
+                        <td th:text="${A.app_help}"></td>
+                        <td th:text="${A.app_auteur}"></td>
+                        <td th:text="${A.app_creation}"></td>
+                        <td th:text="${A.app_modification}"></td>
+                        <td th:text="${A.app_ouverte}"></td>
+                        <td th:text="${A.app_dat_fermeture}"></td>
+                        <td th:text="${A.app_typ_msg}"></td>
+                        <td th:text="${A.app_lib_msg}"></td>
+                        <td th:text="${A.app_lb}"></td>
+                        <td>
+                            <a onclick="return confirm('Etes vous sure?')" class="btn btn-danger" th:href="@{delete(appId = ${A.appId }, keyword=${Keyword}, page =${currentPage})}">
+                                Delete
+                            </a>
+
+                        </td>
+
+                        <td>
+                            <a class ="btn btn-success" th:href="@{/formModApp/{appId}(appId = ${A.appId })}">
+                                Edit
+                            </a>
+
+                        </td>
+
+
+                    </tr>
+                    </tbody>
+
+                </table>
+
+
+
+
+                </td>
+                <ul class="nav nav-pills ">
+                    <li th:each="page,status:${pages}">
+                        <a th:class=" ${status.index==currentPage? 'btn btn-primary ms-1':'btn btn-outline-primary ms-1 ' }"
+                           th:text="${status.index}"
+                        th:href="@{App(page=${status.index},Keyword=${Keyword})}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

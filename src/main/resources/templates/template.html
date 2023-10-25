@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylsheet" type="text/css" href="/webjars/bootstrap/5.1.3/css/bootstrap-grid.min.css">
+    <script src="/webjars/bootstrap/5.1.3/js/bootstrap.bundle.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Active</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" th:href="@{/App}" role="button" data-bs-toggle="dropdown">Gestion des applications</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/App}">lister les application</a></li>
+                    <li><a class="dropdown-item" th:href="@{/formAjouApp}">Ajouter une application</a></li>
+                    <li><a class="dropdown-item" th:href="@{/formModApp}">Modifier une Application</a></li>
+                    <li><a class="dropdown-item" th:href="@{/App}">Supprimer une Application</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" th:href="@{/Actions}" role="button" data-bs-toggle="dropdown">Gestion des actions</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item"  th:href="@{/Actions}">Afficher les actions</a></li>
+                    <li><a class="dropdown-item"  th:href="@{/formAjouAct}">Ajouter une action</a></li>
+                    <li><a class="dropdown-item"  th:href="@{/formModAct}">Modifier une action</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle"  th:href="@{/profil}" role="button" data-bs-toggle="dropdown">Gestion des profils</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/profil}">Afficher les profils </a></li>
+                    <li><a class="dropdown-item" th:href="@{/formAjouProf}">ajouter un profil </a></li>
+                    <li><a class="dropdown-item" th:href="@{/profil}">supprimer un profil</a></li>
+                    <li><a class="dropdown-item" th:href="@{/formModProf}">modifier un profil</a></li>
+                    <li><a class="dropdown-item" th:href="@{/formAjouActProf}">ajouter des action à un profil</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" th:href="@{/utilisateur}" role="button" data-bs-toggle="dropdown">Gestion des utilisateurs</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/utilisateur}">Afficher les utilisateurs</a></li>
+                    <li><a class="dropdown-item" th:href="@{/formAjouUtil}">Ajouter un utilisateurs</a></li>
+                    <li><a class="dropdown-item" th:href="@{/formModUtil}">Modifier un utilisateur</a></li>
+                    <li><a class="dropdown-item" th:href="@{/formAjouProfUtil}">Ajouter un profil à un utilisateur</a></li>
+                    <li><a class="dropdown-item" th:href="@{/verifExisUtil}">vérifier l'existance d'une AD</a></li>
+                    <li><a class="dropdown-item" th:href="@{/verifAppartenance}">vérifier l'appartenance à un groupe AD</a></li>
+
+                </ul>
+            </li>
+            </ul>
+            <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">👤Username</a>
+            </li>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{/Acceuil}">Logout</a></li>
+            </ul>
+        </ul>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">User</a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item" href="#">Déconnection</a>
+                </li>
+            </ul>
+        </li>
+    </div>
+</nav>
+<section layout:fragment="content">
+
+</section>
+
+
+</body>
+</html>

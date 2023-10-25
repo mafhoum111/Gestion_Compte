@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>ajouter un profil</title>
+  <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+
+
+
+<div layout:fragment="content">
+  <div class="col-md-6 offset-3">
+
+
+    <form method="post" th:action="@{save4}"th:object="${t_profil}">
+      <div>
+        <label for="num">prof_num:</label>
+        <input type="text" id="num" class="form-control" th:field="*{profNum}" readonly/>
+      </div>
+      <div>
+        <label for="nom">prof_nom:</label>
+        <input id="nom" class="form-control" type="text" th:field="*{prof_nom}">
+        <span th:errors="${t_profil.prof_nom}"> </span>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+</body>
+</html>

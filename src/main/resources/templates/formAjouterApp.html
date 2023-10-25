@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>ajouter une application</title>
+  <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+
+
+
+<div layout:fragment="content">
+  <div class="col-md-6 offset-3">
+
+
+    <form method="post" th:action="@{save}" th:object="${t_apps}" >
+      <div>
+        <label for="id">ID:</label>
+        <input type="text" id="id" class="form-control"  th:field="*{appId}" readonly/>
+      </div>
+      <div>
+        <label for="domaine">Domaine:</label>
+        <input id="domaine" class="form-control" type="text"  th:field="*{app_domaine}">
+        <span th:errors="${t_apps.app_domaine}"> </span>
+      </div>
+
+      <div>
+        <label for="version">Version:</label>
+        <input id="version" class="form-control" type="text"  th:field="*{app_version}">
+        <span th:errors="${t_apps.app_version}"> </span>
+      </div>
+
+      <div>
+        <label for="help">Help:</label>
+        <input id="help" class="form-control" type="text"   th:field="*{app_help}" >
+        <span th:errors="${t_apps.app_help}"> </span>
+      </div>
+
+      <div>
+        <label for="auteur">Auteur:</label>
+        <input id="auteur" class="form-control" type="text"  th:field="*{app_auteur}" >
+        <span th:errors="${t_apps.app_auteur}"> </span>
+      </div>
+
+      <div>
+        <label for="creation">Date de création:</label>
+        <input id="creation" class="form-control" type="date"   th:field="*{app_creation}">
+        <span th:errors="${t_apps.app_creation}"> </span>
+      </div>
+
+      <div>
+        <label for="modification">Date de modification:</label>
+        <input id="modification" class="form-control" type="date"   th:field="*{app_modification}" >
+        <span th:errors="${t_apps.app_modification}"> </span>
+      </div>
+
+      <div>
+        <label for="ouverture">Ouverture:</label>
+        <input id="ouverture" class="form-control" type="text"   th:field="*{app_ouverte}">
+        <span th:errors="${t_apps.app_ouverte}"> </span>
+      </div>
+
+      <div>
+        <label for="fermeture">Date de fermeture: </label>
+        <input id="fermeture" class="form-control" type="date"  th:field="*{app_dat_fermeture}" >
+        <span th:errors="${t_apps.app_dat_fermeture}"> </span>
+      </div>
+
+      <div>
+        <label for="type">Type de message:</label>
+        <input id="type" class="form-control" type="text" th:field="*{app_typ_msg}">
+        <span th:errors="${t_apps.app_typ_msg}"> </span>
+      </div>
+
+
+      <div>
+        <label for="lib">lib:</label>
+        <input id="lib" class="form-control" type="text"   th:field="*{app_lib_msg}" >
+        <span th:errors="${t_apps.app_lib_msg}"> </span>
+      </div>
+      <div>
+        <label for="lb">lb de message</label>
+        <input id="lb" class="form-control" type="text"  th:field="*{app_lb}">
+        <span th:errors="${t_apps.app_lb}"> </span>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+</body>
+</html>

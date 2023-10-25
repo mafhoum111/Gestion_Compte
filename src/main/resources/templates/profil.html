@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <h3>Liste des profils</h3>
+    <div class="container mt-2">
+        <div class="card">
+            <div class="card-header">  Liste des profils </div>
+            <div class="card-body">
+                <form method="get" th:action="@{profil.html}">
+                    <label>key word</label>
+                    <input type="text" name="keyword" th:value="${Keyword}">
+                    <button type="submit" class="btn btn-primary">Chercher:</button>
+                </form>
+                <td>
+                    <a  th:href="@{formAjouterProfil}">
+                        Ajouter un profil
+                    </a>
+                </td>
+                <td>
+                    <a  th:href="@{associationP}">
+                        Afficher les association de chaque profile
+                    </a>
+                </td>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th> numéro de profil </th>
+                        <th> Nom du profil </th>
+
+                    </thead>
+                    <tbody>
+                    <tr th:each="P:${listprof}">
+                        <td th:text="${P.profNum}"></td>
+                        <td th:text="${P.prof_nom}"></td>
+                        <td>
+                            <a onclick="return confirm('Etes vous sure?')" class="btn btn-danger" th:href="@{supprimer(profNum = ${P.profNum }, keyword=${Keyword}, page =${currentPage})}">
+                                Delete
+                            </a>
+
+                        </td>
+
+                        <td>
+                            <a class ="btn btn-success" th:href="@{/formModProf/{profNum}(profNum=${P.profNum})}">
+                                Edit
+                            </a>
+
+                        </td>
+
+
+                        <td>
+                            <a class ="btn btn-primary" th:href="@{/formAjouActProf/{profNum}(profNum=${P.profNum})}">
+                                asossier aux actions
+                            </a>
+
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+                <ul class="nav nav-pills ">
+                    <li th:each="page,status:${pages}">
+                        <a th:class=" ${status.index==currentPage? 'btn btn-primary ms-1':'btn btn-outline-primary ms-1 ' }"
+                           th:text="${status.index}"
+                           th:href="@{profil(page=${status.index},Keyword=${Keyword})}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

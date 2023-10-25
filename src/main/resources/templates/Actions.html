@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <h3>Liste des actions</h3>
+    <div class="container mt-2">
+        <div class="card">
+            <div class="card-header">  Liste des Actions </div>
+            <div class="card-body">
+                <form method="get" th:action="@{Actions.html}">
+                    <label>key word</label>
+                    <input type="text" name="keyword" th:value="${Keyword}">
+                    <button type="submit" class="btn btn-primary">Chercher:</button>
+                </form>
+
+                <td>
+                    <a  th:href="@{formAjouterAction}">
+                        Ajouter une action
+                    </a>
+                </td>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th> ID </th>
+                        <th> Lib </th>
+                        <th> Id d'application </th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="Ac:${listActions}">
+                        <td th:text="${Ac.actId}"></td>
+                        <td th:text="${Ac.act_lib}"></td>
+                        <td th:text="${Ac.t_apps.getAppId()}"></td>
+
+
+                        <td>
+                            <a class ="btn btn-success" th:href="@{/formModAct/{actId}(actId= ${Ac.actId })}">
+                                Edit
+                            </a>
+
+                        </td>
+
+
+
+
+                    </tr>
+                    </tbody>
+
+                </table>
+
+
+                <ul class="nav nav-pills ">
+                    <li th:each="page,status:${pages}">
+                        <a th:class=" ${status.index==currentPage? 'btn btn-primary ms-1':'btn btn-outline-primary ms-1 ' }"
+                           th:text="${status.index}"
+                           th:href="@{Actions (page=${status.index},Keyword=${Keyword})}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
