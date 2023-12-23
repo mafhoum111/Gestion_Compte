@@ -22,7 +22,6 @@ public class t_actions {
     @ManyToOne
     @JoinColumn(name = "appId")
     private t_apps t_apps;
-
-
-
 }
+
+

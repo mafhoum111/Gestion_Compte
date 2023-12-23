@@ -11,11 +11,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @IdClass(t_actions_profiles_id.class)
-
-
-
-
 public class t_actions_profiles {
+
+
+
     @Id
     @ManyToOne
     @JoinColumn(name= "actId")
@@ -29,3 +28,5 @@ public class t_actions_profiles {
         this.t_profil = t_profil;
     }
 }
+
+

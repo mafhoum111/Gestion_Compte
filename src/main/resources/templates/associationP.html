@@ -1,55 +1,65 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="template"
->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Liste des Associations</title>
   <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
 <body>
-<div layout:fragment="content">
-  <h3>Liste des Associations</h3>
-  <div class="container mt-2">
-    <div class="card">
-      <div class="card-header">Liste des association</div>
-      <div class="card-body">
-        <form method="get" th:action="@{associationP.html}">
-          <label>Keyword</label>
-          <input type="text" name="keyword" th:value="${Keyword}">
-          <button type="submit" class="btn btn-primary">Chercher</button>
-        </form>
-        <table border="1">
-          <thead>
-          <tr>
-            <th>act_id</th>
-            <th>Pro_num</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr th:each="profil : ${t_actions_profiles}">
-            <td th:text="${profil.t_actions.actId}"></td>
-            <td th:text="${profil.t_profil.profNum}"></td>
-          </tr>
-          </tbody>
-        </table>
+
+<div th:insert="template.html"></div>
 
 
+<h3>Liste des Associations pour le Profil: <span th:text="${profil.profNum}"></span></h3>
 
 
+<div class="container mt-2">
 
-        <ul class="nav nav-pills">
-          <li th:each="page, status : ${pages}">
-            <a th:class="${status.index == currentPage ? 'btn btn-primary ms-1' : 'btn btn-outline-primary ms-1'}"
-               th:text="${status.index}"
-               th:href="@{Actions (page=${status.index}, Keyword=${Keyword})}"></a>
-          </li>
-        </ul>
-      </div>
+  <div class="card">
+
+    <div class="card-header">Liste des Associations</div>
+
+
+    <div class="card-body">
+
+      <table class="table">
+
+        <thead>
+        <tr>
+          <th>ID de Profil</th>
+          <th>ID d'Action</th>
+
+        </tr>
+        </thead>
+
+
+        <tbody>
+
+        <tr th:each="association : ${associations}">
+
+          <td th:text="${profil.profNum}"></td>
+
+          <td th:text="${association.t_actions.actId}"></td>
+
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
 </body>
 </html>
+
+<footer class="bg-dark text-center text-lg-start fixed-bottom">
+
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    Lydec Siège:
+    <a class="text-light" href="https://client.lydec.ma/site/fr/web/guest/nous-contacter"> 48 Rue Mohamed Diouri,Casablanca 20000</a>
+  </div>
+
+</footer>
+
+
+
+
+

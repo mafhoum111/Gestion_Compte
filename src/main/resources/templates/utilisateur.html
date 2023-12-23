@@ -10,11 +10,16 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
 <body>
-<div layout:fragment="content">
-    <h3>Liste des utlisateurs</h3>
+<div th:insert="template.html" >  </div>
+
+<div style="text-align: center; font-style: italic; color: rgb(128,128,128);">
+    <h3>Liste des utlisateurs :</h3>
+</div>
+<br>
+
     <div class="container mt-2">
         <div class="card">
-            <div class="card-header">  Liste des utlisateur </div>
+            <div class="card-header">  Opérations sur les comptes des utilisateurs</div>
             <div class="card-body">
                 <form method="get" th:action="@{utilisateur.html}">
                     <label>key word</label>
@@ -22,22 +27,8 @@
                     <button type="submit" class="btn btn-primary">Chercher:</button>
                 </form>
 
-                <td>
-                    <a  th:href="@{formAjouterUtil}">
-                        Ajouter un utilisateur
-                    </a>
-                </td>
+
                 <br>
-                <td>
-                    <a  th:href="@{associationU}">
-                        Afficher les association de chaque utilisateur
-                    </a>
-                </td>
-
-
-
-
-
                 <table class="table">
                     <thead>
                     <tr>
@@ -76,6 +67,13 @@
 
                         </td>
 
+
+                        <td>
+                            <a class ="btn btn-dark" th:href="@{associationU/{matr}(matr=${U.matr})}">
+                                Afficher les association de chaque utilisateur
+                            </a>
+                        </td>
+
                     </tr>
                     </tbody>
 
@@ -90,6 +88,22 @@
             </div>
         </div>
     </div>
-</div>
+
 </body>
 </html>
+<br>
+
+<div style="text-align: center;">
+    <a class="btn btn-primary" th:href="@{formAjouterUtil}">
+        Ajouter un utilisateur
+    </a>
+</div>
+
+<footer class="bg-dark text-center text-lg-start fixed-bottom">
+
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        Lydec Siège:
+        <a class="text-light" href="https://client.lydec.ma/site/fr/web/guest/nous-contacter"> 48 Rue Mohamed Diouri,Casablanca 20000</a>
+    </div>
+
+</footer>

@@ -10,11 +10,18 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
 <body>
-<div layout:fragment="content">
-    <h3>Liste des actions</h3>
+<div th:insert="template.html" >  </div>
+
+<br>
+<div style="text-align: center; font-style: italic; color: rgb(128,128,128);">
+    <h3>Liste des actions :</h3>
+</div>
+<br>
+
+
     <div class="container mt-2">
         <div class="card">
-            <div class="card-header">  Liste des Actions </div>
+            <div class="card-header">  Opération sur les actions </div>
             <div class="card-body">
                 <form method="get" th:action="@{Actions.html}">
                     <label>key word</label>
@@ -22,11 +29,7 @@
                     <button type="submit" class="btn btn-primary">Chercher:</button>
                 </form>
 
-                <td>
-                    <a  th:href="@{formAjouterAction}">
-                        Ajouter une action
-                    </a>
-                </td>
+
                 <table class="table">
                     <thead>
                     <tr>
@@ -40,11 +43,14 @@
                     <tr th:each="Ac:${listActions}">
                         <td th:text="${Ac.actId}"></td>
                         <td th:text="${Ac.act_lib}"></td>
-                        <td th:text="${Ac.t_apps.getAppId()}"></td>
+                        <td th:if="${Ac.t_apps != null}" th:text="${Ac.t_apps.getAppId()}"></td>
+
 
 
                         <td>
-                            <a class ="btn btn-success" th:href="@{/formModAct/{actId}(actId= ${Ac.actId })}">
+
+
+                        <a class ="btn btn-success" th:href="@{/formModAct/{actId}(actId= ${Ac.actId })}">
                                 Edit
                             </a>
 
@@ -69,6 +75,20 @@
             </div>
         </div>
     </div>
-</div>
+
 </body>
 </html>
+<br>
+<div style="text-align: center;">
+    <a class="btn btn-primary" th:href="@{formAjouterAction}">
+        Ajouter une action
+    </a>
+</div>
+<footer class="bg-dark text-center text-lg-start fixed-bottom">
+
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        Lydec Siège:
+        <a class="text-light" href="https://client.lydec.ma/site/fr/web/guest/nous-contacter"> 48 Rue Mohamed Diouri,Casablanca 20000</a>
+    </div>
+
+</footer>

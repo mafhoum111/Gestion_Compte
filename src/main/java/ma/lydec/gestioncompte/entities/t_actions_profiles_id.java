@@ -35,3 +35,6 @@ public class  t_actions_profiles_id implements Serializable{
         return Objects.hash(t_actions, t_profil);
     }
 }
+
+
+

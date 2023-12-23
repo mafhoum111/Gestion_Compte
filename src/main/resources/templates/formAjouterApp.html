@@ -13,7 +13,7 @@
 
 
 
-<div layout:fragment="content">
+<div th:insert="template.html" >  </div>
   <div class="col-md-6 offset-3">
 
 
@@ -87,6 +87,7 @@
         <input id="lb" class="form-control" type="text"  th:field="*{app_lb}">
         <span th:errors="${t_apps.app_lb}"> </span>
       </div>
+      <br>
 
       <button type="submit" class="btn btn-primary">Save</button>
     </form>
@@ -98,3 +99,13 @@
 
 </body>
 </html>
+
+<br>
+<footer class="bg-dark text-center text-lg-start bottom-0">
+
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    Lydec Siège:
+    <a class="text-light" href="https://client.lydec.ma/site/fr/web/guest/nous-contacter"> 48 Rue Mohamed Diouri,Casablanca 20000</a>
+  </div>
+
+</footer>

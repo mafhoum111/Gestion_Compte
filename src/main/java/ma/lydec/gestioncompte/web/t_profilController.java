@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Controller
@@ -120,43 +121,33 @@ public class t_profilController {
 
 
 
-    @GetMapping("/formAjouProfUtil/{matr}")
-    public String formAjouProfUtil(Model model,
-                                  @PathVariable("matr") Long matr,
-                                  @RequestParam(name="page", defaultValue = "0") int page,
-                                  @RequestParam(name="size", defaultValue = "5") int size,
-                                  @RequestParam(name="Keyword", defaultValue = "") String Keyword) {
-        Page<t_profil> profils = t_profilRepository.findAll(PageRequest.of(page, size));
-        model.addAttribute("listProfil", profils.getContent());
-        model.addAttribute("pages", new int[profils.getTotalPages()]);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("Keyword", Keyword);
-        model.addAttribute("matr", matr);
-        utilisateurs utilisateurs = utilisateursRepository.findByMatr(matr);
-        model.addAttribute("utilisateurs", utilisateurs);
-
-        return "formAjouProfUtil";
-    }
-
 
 
 
 
     @PostMapping("/formAjouProfUtil/{matr}/associer")
     public String associer(@PathVariable("matr") Long matr,
-                           @RequestParam(name = "selectedProfil", required = false) List<Long> selectedProfil) {
+                           @RequestParam(name = "selectedProfils", required = false) List<Long> selectedProfils) {
 
         utilisateurs utilisateurs = utilisateursRepository.findById(matr).orElse(null);
 
-        if (utilisateurs != null && selectedProfil != null && !selectedProfil.isEmpty()) {
-            for (Long profNum : selectedProfil) {
+        if (utilisateurs != null && selectedProfils != null && !selectedProfils.isEmpty()) {
 
-                t_profil t_profil = t_profilRepository.findById(profNum).orElse(null);
+            List<t_profil_utilisateur_id> profilsAssocieesIds = t_profil_utilisateurRepository.findT_profil_utilisateur_idByUtilisateurs(utilisateurs);
 
-                if (t_profil != null) {
+            if (profilsAssocieesIds == null) {
+                profilsAssocieesIds = new ArrayList<>();
+            }
 
-                    t_profil_utilisateur t_profil_utilisateur = new t_profil_utilisateur(t_profil,utilisateurs);
-                       t_profil_utilisateurRepository.save(t_profil_utilisateur);
+            for (Long profNum : selectedProfils) {
+
+                if (!profilsAssocieesIds.contains(profNum)) {
+                    t_profil t_profil = t_profilRepository.findById(profNum).orElse(null);
+
+                    if (t_profil != null) {
+                        t_profil_utilisateur t_profil_utilisateur= new t_profil_utilisateur( t_profil,utilisateurs);
+                        t_profil_utilisateurRepository.save(t_profil_utilisateur);
+                    }
                 }
             }
         }
@@ -164,21 +155,93 @@ public class t_profilController {
         return "redirect:/utilisateur";
     }
 
+    @GetMapping("/formAjouProfUtil/{matr}")
+    public String formAjouProfUtil(Model model,
+                                  @PathVariable("matr") Long matr,
+                                  @RequestParam(name="page", defaultValue = "0") int page,
+                                  @RequestParam(name="size", defaultValue = "5") int size,
+                                  @RequestParam(name="Keyword", defaultValue = "") String Keyword) {
 
-    @GetMapping("/associationP")
-    public String afficherUtilisateurs(Model model,
-                                       @RequestParam(name="page",defaultValue = "0") int page,
-                                       @RequestParam(name="size",defaultValue = "5") int size,
-                                       @RequestParam(name="Keyword",defaultValue = "") String Keyword){
 
-        Page<t_actions_profiles> profiles =t_actions_profilesRepository.findAll( PageRequest.of(page,size));
-        model.addAttribute("t_actions_profiles",profiles.getContent());
-        model.addAttribute("pages",new int [profiles.getTotalPages()]);
-        model.addAttribute("currentPage",page);
-        model.addAttribute("Keyword",Keyword);
+        utilisateurs utilisateurs = utilisateursRepository.findByMatr(matr);
+        model.addAttribute("utilisateurs", utilisateurs);
 
-        return "associationP";
+        Page<t_profil> profils = null;
+        List<t_profil> profilsDisponibles = null;
+
+
+        List<t_profil_utilisateur> profilsAssociees = t_profil_utilisateurRepository.findT_profiles_utilisateurByUtilisateurs(utilisateurs);
+
+        if (profilsAssociees.isEmpty()) {
+
+            profils = t_profilRepository.findAll(PageRequest.of(page, size));
+            model.addAttribute("listProfils", profils.getContent());
+        } else {
+
+            profilsDisponibles = t_profilRepository.findProfilNonAssociees(utilisateurs);
+            model.addAttribute("listProfils", profilsDisponibles);
+        }
+
+
+        model.addAttribute("pages", new int[profils != null ? profils.getTotalPages() : 0]);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("Keyword", Keyword);
+        model.addAttribute("profNum", matr);
+
+        return "formAjouProfUtil";
     }
+
+
+    @GetMapping("/associationU/{matr}")
+    public String afficherAssociations(Model model, @PathVariable("matr") Long matr) {
+
+        utilisateurs utilisateurs = utilisateursRepository.findByMatr(matr);
+
+
+        List<t_profil_utilisateur> associations = t_profil_utilisateurRepository.findAssociationsByUtilisateurs(utilisateurs);
+
+
+        model.addAttribute("utilisateurs", utilisateurs);
+        model.addAttribute("associations", associations);
+
+        return "associationU";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
